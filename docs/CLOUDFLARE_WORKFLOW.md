@@ -72,3 +72,33 @@ Add these GitHub repository secrets before first run:
 
 - `CLOUDFLARE_API_TOKEN`
 - `CLOUDFLARE_ACCOUNT_ID`
+
+### Where to get `CLOUDFLARE_ACCOUNT_ID`
+
+1. Open Cloudflare Dashboard.
+2. Go to Workers & Pages (or check the right sidebar on most account pages).
+3. Copy the Account ID (long hex string).
+
+### Where to get `CLOUDFLARE_API_TOKEN`
+
+1. Open Cloudflare Dashboard.
+2. Go to My Profile > API Tokens > Create Token.
+3. Use the Edit Cloudflare Workers template (or create a custom scoped token).
+4. Copy the token value once created.
+
+Recommended minimum token permissions:
+
+- Account - Workers Scripts: Edit
+- Account - Workers Routes: Edit
+- Account - Account Settings: Read (optional, but useful)
+
+### Where to add secrets in GitHub
+
+1. Open your repository in GitHub.
+2. Go to Settings > Secrets and variables > Actions.
+3. Click New repository secret.
+4. Add:
+   - `CLOUDFLARE_API_TOKEN` = token value
+   - `CLOUDFLARE_ACCOUNT_ID` = account id value
+
+After this, push to `main` and the deploy workflow should auto-deploy latest changes.
