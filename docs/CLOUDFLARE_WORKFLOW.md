@@ -61,3 +61,14 @@ npm run deploy:cf
 ```bash
 npm run cf:tail
 ```
+
+## Auto deploy from GitHub
+
+This repository includes `.github/workflows/deploy-cloudflare.yml`.
+
+It deploys automatically when you push to `main` (and can also be triggered manually from the Actions tab).
+
+Add these GitHub repository secrets before first run:
+
+- `CLOUDFLARE_API_TOKEN`
+- `CLOUDFLARE_ACCOUNT_ID`

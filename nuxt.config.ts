@@ -1,6 +1,13 @@
 export default defineNuxtConfig({
   compatibilityDate: '2025-01-01',
   devtools: { enabled: true },
+  app: {
+    head: {
+      link: [
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      ],
+    },
+  },
   modules: ['@nuxtjs/tailwindcss'],
   css: ['~/assets/css/main.css'],
   typescript: {
