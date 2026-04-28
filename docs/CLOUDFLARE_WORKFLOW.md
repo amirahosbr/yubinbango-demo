@@ -90,7 +90,14 @@ Recommended minimum token permissions:
 
 - Account - Workers Scripts: Edit
 - Account - Workers Routes: Edit
+- Zone - Workers Routes: Edit
+- Zone - Zone: Read
 - Account - Account Settings: Read (optional, but useful)
+
+Important resource scope:
+
+- Include the account `amirahosbr`.
+- Include the zone resource for `ujikaji.my` (or all zones if you prefer).
 
 ### Where to add secrets in GitHub
 
@@ -102,3 +109,21 @@ Recommended minimum token permissions:
    - `CLOUDFLARE_ACCOUNT_ID` = account id value
 
 After this, push to `main` and the deploy workflow should auto-deploy latest changes.
+
+### Troubleshooting
+
+If GitHub Actions fails with:
+
+- `Authentication error [code: 10000]`
+- endpoint like `/zones/<zone-id>/workers/routes`
+
+then your token is missing zone-level permissions or zone resource access.
+
+Fix:
+
+1. Edit/recreate `CLOUDFLARE_API_TOKEN`.
+2. Ensure it includes:
+   - Zone - Workers Routes: Edit
+   - Zone - Zone: Read
+3. Ensure the token scope includes your `ujikaji.my` zone.
+4. Update GitHub secret `CLOUDFLARE_API_TOKEN` and re-run workflow.
