@@ -8,7 +8,16 @@ export default defineNuxtConfig({
       ],
     },
   },
-  modules: ['@nuxtjs/tailwindcss'],
+  modules: ['@nuxtjs/tailwindcss', '@nuxtjs/i18n'],
+  i18n: {
+    strategy: 'prefix_except_default',
+    defaultLocale: 'ja',
+    locales: [
+      { code: 'ja', name: '日本語', file: 'ja.json' },
+      { code: 'en', name: 'English', file: 'en.json' },
+      { code: 'ms', name: 'BM', file: 'ms.json' },
+    ],
+  },
   css: ['~/assets/css/main.css'],
   typescript: {
     tsConfig: {

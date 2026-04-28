@@ -2,14 +2,12 @@
   <div class="max-w-5xl mx-auto px-4 py-12">
     <div class="text-center mb-14">
       <div class="text-5xl mb-4">あ</div>
-      <h1 class="text-3xl font-bold text-gray-900 mb-3">ふりがな自動入力デモ</h1>
-      <p class="text-gray-500 text-lg max-w-xl mx-auto">
-        氏名フィールドに入力すると、IME の変換イベントからふりがなを自動取得する4つの実装方法を比較するデモです。
-      </p>
+      <h1 class="text-3xl font-bold text-gray-900 mb-3">{{ $t('autoKana.index.title') }}</h1>
+      <p class="text-gray-500 text-lg max-w-xl mx-auto">{{ $t('autoKana.index.subtitle') }}</p>
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-      <NuxtLink
+      <NuxtLinkLocale
         v-for="page in pages"
         :key="page.path"
         :to="page.path"
@@ -26,7 +24,7 @@
                 {{ page.badge }}
               </span>
               <span v-if="page.recommended" class="text-xs font-semibold px-2 py-0.5 rounded-full bg-teal-100 text-teal-700">
-                ★ 推奨
+                {{ $t('common.recommended') }}
               </span>
             </div>
             <p class="text-gray-500 text-sm leading-relaxed mb-3">{{ page.description }}</p>
@@ -43,81 +41,83 @@
           </div>
         </div>
         <div class="mt-4 flex items-center text-teal-600 text-sm font-medium gap-1 group-hover:gap-2 transition-all">
-          デモを見る
+          {{ $t('common.seeDemo') }}
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
           </svg>
         </div>
-      </NuxtLink>
+      </NuxtLinkLocale>
     </div>
 
     <div class="mt-12 bg-teal-50 border border-teal-200 rounded-xl p-5 text-sm text-teal-800">
-      <strong class="block mb-1">テスト方法</strong>
-      <p class="mt-1">氏名フィールドをクリックして日本語 IME で入力してください（例: 田中太郎）。ふりがなフィールドにひらがなが自動入力されます。</p>
-      <p class="mt-1 text-teal-600">IME で変換前のひらがな読みを <code class="bg-teal-100 px-1 rounded">compositionupdate</code> イベントで取得し、変換後のふりがなを自動入力します。</p>
+      <strong class="block mb-1">{{ $t('autoKana.index.howToTest') }}</strong>
+      <p class="mt-1">{{ $t('autoKana.index.howToTestBody') }}</p>
+      <p class="mt-1 text-teal-600">{{ $t('autoKana.index.howToTestNote') }}</p>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-useHead({ title: 'ふりがな自動入力デモ' })
+const { t } = useI18n()
 
-const pages = [
+useHead(computed(() => ({ title: t('autoKana.index.title') })))
+
+const pages = computed(() => [
   {
     path: '/auto-kana/composable',
     icon: '🔧',
     title: 'useAutoKana Composable',
-    badge: 'カスタム',
+    badge: t('autoKana.index.composable.badge'),
     badgeClass: 'bg-teal-100 text-teal-700',
     recommended: true,
-    description: 'composables/useAutoKana.ts に IME イベントをラップしたカスタム Composable。依存ゼロで Vue に完全対応。使う側はたった1行。',
+    description: t('autoKana.index.composable.desc'),
     tags: [
-      { text: '依存ゼロ', class: 'bg-green-100 text-green-700' },
-      { text: 'IMEイベント', class: 'bg-teal-100 text-teal-700' },
-      { text: 'ひらがな / カタカナ切替', class: 'bg-gray-100 text-gray-600' },
+      { text: t('autoKana.index.composable.tag1'), class: 'bg-green-100 text-green-700' },
+      { text: t('autoKana.index.composable.tag2'), class: 'bg-teal-100 text-teal-700' },
+      { text: t('autoKana.index.composable.tag3'), class: 'bg-gray-100 text-gray-600' },
     ],
   },
   {
     path: '/auto-kana/wanakana',
     icon: '📦',
     title: 'wanakana',
-    badge: 'npm',
+    badge: t('autoKana.index.wanakana.badge'),
     badgeClass: 'bg-red-100 text-red-700',
     recommended: false,
-    description: 'wanakana.bind() でふりがなフィールドにバインド。ローマ字→ひらがなをリアルタイム変換。氏名からの自動取得ではなく「ふりがな入力補助」用途。',
+    description: t('autoKana.index.wanakana.desc'),
     tags: [
-      { text: 'wanakana@5', class: 'bg-red-100 text-red-700' },
-      { text: 'ローマ字→ひらがな', class: 'bg-orange-100 text-orange-700' },
-      { text: 'IMEとは別', class: 'bg-gray-100 text-gray-600' },
+      { text: t('autoKana.index.wanakana.tag1'), class: 'bg-red-100 text-red-700' },
+      { text: t('autoKana.index.wanakana.tag2'), class: 'bg-orange-100 text-orange-700' },
+      { text: t('autoKana.index.wanakana.tag3'), class: 'bg-gray-100 text-gray-600' },
     ],
   },
   {
     path: '/auto-kana/inline',
     icon: '📝',
-    title: 'Inline イベント',
-    badge: 'インライン',
+    title: 'Inline',
+    badge: t('autoKana.index.inline.badge'),
     badgeClass: 'bg-blue-100 text-blue-700',
     recommended: false,
-    description: 'useAutoKana と同じロジックを Composable に分離せず、コンポーネント内に直接書いた版。動作は同じ、コードの冗長性が増す。Composable の必要性を確認するための比較。',
+    description: t('autoKana.index.inline.desc'),
     tags: [
-      { text: 'Composable なし', class: 'bg-yellow-100 text-yellow-700' },
-      { text: 'IMEイベント', class: 'bg-blue-100 text-blue-700' },
-      { text: '比較用', class: 'bg-gray-100 text-gray-600' },
+      { text: t('autoKana.index.inline.tag1'), class: 'bg-yellow-100 text-yellow-700' },
+      { text: t('autoKana.index.inline.tag2'), class: 'bg-blue-100 text-blue-700' },
+      { text: t('autoKana.index.inline.tag3'), class: 'bg-gray-100 text-gray-600' },
     ],
   },
   {
     path: '/auto-kana/naive',
     icon: '❌',
-    title: 'ナイーブコピー',
-    badge: '非推奨',
+    title: 'Naive',
+    badge: t('autoKana.index.naive.badge'),
     badgeClass: 'bg-red-100 text-red-700',
     recommended: false,
-    description: '@input で値をそのままコピーする誤ったアプローチ。漢字確定後の文字をコピーするため、ふりがなフィールドに「田中太郎」が入ってしまう。なぜ compositionupdate が必要かを確認するための逆説デモ。',
+    description: t('autoKana.index.naive.desc'),
     tags: [
-      { text: '動作しない', class: 'bg-red-100 text-red-700' },
-      { text: '漢字がコピーされる', class: 'bg-red-100 text-red-700' },
-      { text: '教育目的', class: 'bg-gray-100 text-gray-600' },
+      { text: t('autoKana.index.naive.tag1'), class: 'bg-red-100 text-red-700' },
+      { text: t('autoKana.index.naive.tag2'), class: 'bg-red-100 text-red-700' },
+      { text: t('autoKana.index.naive.tag3'), class: 'bg-gray-100 text-gray-600' },
     ],
   },
-]
+])
 </script>

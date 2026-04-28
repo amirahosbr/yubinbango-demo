@@ -1,0 +1,165 @@
+{
+  "nav": {
+    "postal": "〒 Postal Code",
+    "furigana": "あ Furigana",
+    "back": "← All demos"
+  },
+  "common": {
+    "name": "Name",
+    "furigana": "Furigana",
+    "seeDemo": "See demo",
+    "implCode": "Implementation",
+    "recommended": "★ Recommended",
+    "custom": "Custom",
+    "notRecommended": "❌ Not recommended",
+    "inline": "Inline",
+    "npm": "npm",
+    "pattern": "Pattern",
+    "outputLabel": "Output format",
+    "hiragana": "Hiragana",
+    "katakana": "Katakana",
+    "namePlaceholder": "田中　太郎",
+    "furiganaPlaceholderHira": "たなか　たろう",
+    "furiganaPlaceholderKata": "タナカ　タロウ"
+  },
+  "postal": {
+    "title": "Postal Code Auto-fill Demo",
+    "subtitle": "Compare 4 ways to auto-fill prefecture and city from a 7-digit Japanese postal code.",
+    "testTitle": "Test postal codes",
+    "testItems": [
+      "1000001 → Tokyo, Chiyoda-ku, Chiyoda",
+      "1600022 → Tokyo, Shinjuku-ku, Shinjuku",
+      "5300001 → Osaka, Kita-ku, Umeda",
+      "4600008 → Nagoya, Naka-ku, Sakae"
+    ],
+    "core": {
+      "badge": "npm package",
+      "desc": "TypeScript-ready npm package. Fetches data via JSONP with in-session caching. Best compatibility with Nuxt 3.",
+      "tag1": "Session cache",
+      "tag2": "TypeScript",
+      "tag3": "watch-based"
+    },
+    "core2": {
+      "badge": "npm package v2",
+      "desc": "Fork of yubinbango-core that adds module.exports = YubinBango for proper CommonJS export. No Vite plugin needed. Fully API-compatible.",
+      "tag1": "Has module.exports",
+      "tag2": "No Vite plugin",
+      "tag3": "core1 compatible"
+    },
+    "zipcloud": {
+      "badge": "REST API",
+      "desc": "Calls the free zipcloud.ibsnet.co.jp API via $fetch. No npm install needed. Simple structure, easy to understand.",
+      "tag1": "No npm",
+      "tag2": "Network required",
+      "tag3": "$fetch"
+    },
+    "script": {
+      "badge": "Script tag",
+      "desc": "CDN script tag version. Uses DOM class names (p-postal-code, p-region) that clash with Vue reactivity. Uses a setTimeout workaround. Shown as a counter-example.",
+      "tag1": "DOM manipulation",
+      "tag2": "Avoid in Vue",
+      "tag3": "For comparison"
+    },
+    "composable": {
+      "badge": "Pattern",
+      "desc": "Wraps yubinbango-core2 in a usePostalCode() composable for reuse. Share the same logic across multiple forms or projects.",
+      "tag1": "Reusable",
+      "tag2": "Composable",
+      "tag3": "Best practice"
+    }
+  },
+  "autoKana": {
+    "index": {
+      "title": "Furigana Auto-fill Demo",
+      "subtitle": "Compare 4 ways to auto-fill furigana (the kana reading) as you type a Japanese name through the IME.",
+      "howToTest": "How to test",
+      "howToTestBody": "Click the Name field with Japanese IME active and type a name character by character. The furigana field fills in as you type through the IME.",
+      "howToTestNote": "Uses compositionupdate to capture the kana reading before kanji conversion.",
+      "composable": {
+        "badge": "Custom",
+        "desc": "Custom composable wrapping IME events in composables/useAutoKana.ts. Zero deps, Vue-native. One line to use.",
+        "tag1": "Zero deps",
+        "tag2": "IME events",
+        "tag3": "Hiragana / Katakana"
+      },
+      "wanakana": {
+        "badge": "npm",
+        "desc": "Binds to the furigana field via wanakana.bind(). Converts romaji to hiragana as you type. Not auto-fill from name — it's a furigana input helper.",
+        "tag1": "wanakana v5",
+        "tag2": "Romaji → Hiragana",
+        "tag3": "Different from auto-kana"
+      },
+      "inline": {
+        "badge": "Inline",
+        "desc": "Same logic as useAutoKana written directly in the component. Identical behavior, more boilerplate. Shows why the composable pattern exists.",
+        "tag1": "No composable",
+        "tag2": "IME events",
+        "tag3": "For comparison"
+      },
+      "naive": {
+        "badge": "Not recommended",
+        "desc": "v-model (input event) copies the value as-is. Gets kanji, not kana. Educational demo showing why compositionupdate is needed.",
+        "tag1": "Broken",
+        "tag2": "Copies kanji",
+        "tag3": "Educational"
+      }
+    },
+    "composable": {
+      "pageTitle": "useAutoKana Composable | Furigana Auto-fill",
+      "desc": "Wraps IME compositionupdate events in composables/useAutoKana.ts. Zero deps, Vue-native. One line to use.",
+      "pros": [
+        "✅ Zero deps — no npm install needed",
+        "✅ compositionupdate captures the IME reading before kanji conversion",
+        "✅ isKana check prevents overwrite when IME switches to candidate mode",
+        "✅ output option is reactive (MaybeRef)",
+        "✅ Accumulates kana across multiple composition segments",
+        "✅ Auto-resets when input is cleared"
+      ]
+    },
+    "wanakana": {
+      "pageTitle": "wanakana | Furigana Auto-fill",
+      "desc": "Binds to the furigana field via wanakana.bind(). Converts romaji input to hiragana in real time. Not auto-fill from name — it's a furigana input helper.",
+      "warning": "This page does NOT auto-fill from the Name field. Type romaji directly into the Furigana field — it converts to hiragana in real time.",
+      "furiganaHint": "Type romaji here (e.g. tanaka taro)",
+      "pros": [
+        "✅ npm install wanakana — lightweight library",
+        "✅ wanakana.bind() attaches to the input",
+        "⚠️ Not auto-fill from name — user types into the furigana field manually",
+        "⚠️ Does not use IME compositionupdate (string conversion only)",
+        "ℹ️ wanakana solves romaji→kana conversion, not IME-based auto-kana"
+      ],
+      "diffTitle": "Difference from useAutoKana",
+      "diff1": "useAutoKana captures the IME reading of the Name field (田中太郎 → たなかたろう).",
+      "diff2": "wanakana.bind() converts romaji typed in the Furigana field (tanaka → たなか).",
+      "diff3": "Different UX — the former is fully automatic, the latter requires the user to type into the furigana field separately."
+    },
+    "inline": {
+      "pageTitle": "Inline Events | Furigana Auto-fill",
+      "desc": "Same logic as useAutoKana written directly in the component without composable abstraction. Identical behavior, more boilerplate.",
+      "pros": [
+        "✅ Identical behavior to useAutoKana Composable",
+        "⚠️ Must write addEventListener setup in every component",
+        "⚠️ Copy-paste required if used in multiple forms",
+        "ℹ️ Moving this code to composables/useAutoKana.ts is the Composable version"
+      ]
+    },
+    "naive": {
+      "pageTitle": "Naive Copy (Not recommended) | Furigana Auto-fill",
+      "desc": "Copies the input value as-is via v-model (input event). Gets kanji, not the kana reading. Educational demo showing why composition events are needed.",
+      "warning": "Intentionally broken. Type 田中太郎 in the Name field — the Furigana field gets 田中太郎 (kanji). This shows the limit of v-model (input event) without compositionupdate.",
+      "errorMsg": "❌ Furigana got \"{value}\" instead of the kana reading. The IME reading was already lost by the time v-model (input event) fired.",
+      "whyTitle": "Why does this break?",
+      "why": {
+        "body": "Japanese IME converts in 3 steps: romaji → hiragana → kanji candidate. v-model / v-model (input event) only fires after kanji is committed — the hiragana reading is already gone at that point.",
+        "eventsTitle": "IME event sequence:",
+        "events": [
+          "compositionstart — IME opens",
+          "compositionupdate — kana reading is HERE (e.g. \"たなか\")",
+          "compositionend — kanji committed (e.g. \"田中\")",
+          "input — ← v-model / v-model (input event) fires here. Only kanji remains."
+        ],
+        "solution": "Fix: listen to compositionupdate and record the reading while it's still kana. That's what useAutoKana Composable does."
+      }
+    }
+  }
+}

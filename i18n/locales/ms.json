@@ -1,0 +1,165 @@
+{
+  "nav": {
+    "postal": "〒 Poskod",
+    "furigana": "あ Furigana",
+    "back": "← Balik"
+  },
+  "common": {
+    "name": "Nama",
+    "furigana": "Furigana",
+    "seeDemo": "Cuba demo",
+    "implCode": "Code",
+    "recommended": "★ Paling best",
+    "custom": "Custom",
+    "notRecommended": "❌ Jangan guna",
+    "inline": "Inline",
+    "npm": "npm",
+    "pattern": "Pattern",
+    "outputLabel": "Format output",
+    "hiragana": "Hiragana",
+    "katakana": "Katakana",
+    "namePlaceholder": "田中　太郎",
+    "furiganaPlaceholderHira": "たなか　たろう",
+    "furiganaPlaceholderKata": "タナカ　タロウ"
+  },
+  "postal": {
+    "title": "Demo Auto-fill Poskod",
+    "subtitle": "4 cara auto-fill alamat dari poskod Jepun 7 digit. Cuba tengok mana paling best!",
+    "testTitle": "Poskod untuk test",
+    "testItems": [
+      "1000001 → Tokyo, Chiyoda-ku, Chiyoda",
+      "1600022 → Tokyo, Shinjuku-ku, Shinjuku",
+      "5300001 → Osaka, Kita-ku, Umeda",
+      "4600008 → Nagoya, Naka-ku, Sakae"
+    ],
+    "core": {
+      "badge": "npm package",
+      "desc": "Package npm dengan TypeScript support. Fetch data guna JSONP dengan session cache. Paling serasi dengan Nuxt 3.",
+      "tag1": "Session cache",
+      "tag2": "TypeScript support",
+      "tag3": "watch-based"
+    },
+    "core2": {
+      "badge": "npm package v2",
+      "desc": "Fork dari yubinbango-core yang tambah module.exports = YubinBango. Tak payah Vite plugin. API sama je dengan core1.",
+      "tag1": "Ada module.exports",
+      "tag2": "Tak payah Vite plugin",
+      "tag3": "Serasi dengan core1"
+    },
+    "zipcloud": {
+      "badge": "REST API",
+      "desc": "Call free API zipcloud.ibsnet.co.jp guna $fetch. Tak payah install npm. Simple dan senang faham.",
+      "tag1": "Tak payah npm",
+      "tag2": "Kena ada internet",
+      "tag3": "$fetch"
+    },
+    "script": {
+      "badge": "Script tag",
+      "desc": "Versi CDN script tag. Guna class name DOM (p-postal-code, p-region) yang clash dengan Vue reactivity. Ada workaround setTimeout. Untuk tengok contoh yang tak elok.",
+      "tag1": "DOM manipulation",
+      "tag2": "Jangan guna dalam Vue",
+      "tag3": "Untuk compare"
+    },
+    "composable": {
+      "badge": "Pattern",
+      "desc": "Wrap yubinbango-core2 dalam usePostalCode() composable supaya boleh reuse. Share logic yang sama untuk banyak form.",
+      "tag1": "Boleh reuse",
+      "tag2": "Composable",
+      "tag3": "Best practice"
+    }
+  },
+  "autoKana": {
+    "index": {
+      "title": "Demo Auto-fill Furigana",
+      "subtitle": "4 cara auto-fill furigana (cara baca) masa taip nama Jepun guna IME. Cuba semua!",
+      "howToTest": "Macam mana nak test",
+      "howToTestBody": "Click kat field Nama dengan Japanese IME dah on, pastu taip nama huruf demi huruf. Field furigana akan auto-fill masa kau taip guna IME.",
+      "howToTestNote": "Guna compositionupdate untuk capture bacaan kana sebelum tukar jadi kanji.",
+      "composable": {
+        "badge": "Custom",
+        "desc": "Custom composable yang wrap IME events dalam composables/useAutoKana.ts. Zero dependency, Vue-native. Satu baris je untuk guna.",
+        "tag1": "Zero dependency",
+        "tag2": "IME events",
+        "tag3": "Hiragana / Katakana"
+      },
+      "wanakana": {
+        "badge": "npm",
+        "desc": "Bind kat field furigana guna wanakana.bind(). Tukar romaji→hiragana masa taip. Bukan auto-fill dari nama — ni helper untuk input furigana.",
+        "tag1": "wanakana v5",
+        "tag2": "Romaji → Hiragana",
+        "tag3": "Bukan auto-kana"
+      },
+      "inline": {
+        "badge": "Inline",
+        "desc": "Logic sama macam useAutoKana tapi tulis terus dalam component. Kerja sama, tapi code lebih panjang. Tengok kenapa composable pattern tu penting.",
+        "tag1": "Tak ada composable",
+        "tag2": "IME events",
+        "tag3": "Untuk compare"
+      },
+      "naive": {
+        "badge": "Jangan guna",
+        "desc": "v-model (input event) copy value terus. Dapat kanji, bukan kana. Demo educational untuk faham kenapa compositionupdate tu penting.",
+        "tag1": "Tak jalan",
+        "tag2": "Copy kanji",
+        "tag3": "Educational"
+      }
+    },
+    "composable": {
+      "pageTitle": "useAutoKana Composable | Demo Furigana",
+      "desc": "Wrap IME compositionupdate events dalam composables/useAutoKana.ts. Zero deps, Vue-native. Satu baris je nak guna.",
+      "pros": [
+        "✅ Zero deps — tak payah install apa-apa",
+        "✅ compositionupdate capture bacaan IME sebelum jadi kanji",
+        "✅ isKana check elak overwrite bila IME tukar ke mode candidate",
+        "✅ Option output tu reactive (MaybeRef)",
+        "✅ Kumpul kana dari multiple composition segments",
+        "✅ Auto-reset bila input dikosongkan"
+      ]
+    },
+    "wanakana": {
+      "pageTitle": "wanakana | Demo Furigana",
+      "desc": "Bind kat field furigana guna wanakana.bind(). Tukar romaji input ke hiragana real-time. Bukan auto-fill dari nama — ni helper untuk input furigana.",
+      "warning": "Page ni TAK auto-fill dari field Nama. Taip romaji terus dalam field Furigana — dia tukar ke hiragana real-time.",
+      "furiganaHint": "Taip romaji kat sini (contoh: tanaka taro)",
+      "pros": [
+        "✅ npm install wanakana — library ringan",
+        "✅ wanakana.bind() attach je kat input tu",
+        "⚠️ Bukan auto-fill dari nama — kena taip sendiri dalam field furigana",
+        "⚠️ Tak guna IME compositionupdate (string conversion je)",
+        "ℹ️ wanakana solve romaji→kana conversion, bukan IME-based auto-kana"
+      ],
+      "diffTitle": "Beza dengan useAutoKana",
+      "diff1": "useAutoKana capture bacaan IME dari field Nama (田中太郎 → たなかたろう).",
+      "diff2": "wanakana.bind() convert romaji yang kau taip dalam field Furigana (tanaka → たなか).",
+      "diff3": "UX lain — yang pertama fully automatic, yang kedua kena taip sendiri dalam field furigana."
+    },
+    "inline": {
+      "pageTitle": "Inline Events | Demo Furigana",
+      "desc": "Logic sama macam useAutoKana tapi tulis inline dalam component je, tak wrap dalam composable. Kerja sama, code lebih panjang.",
+      "pros": [
+        "✅ Kerja exactly sama macam useAutoKana Composable",
+        "⚠️ Kena tulis addEventListener setup dalam tiap-tiap component",
+        "⚠️ Kalau guna dalam banyak form, kena copy-paste",
+        "ℹ️ Code ni kalau pindah ke composables/useAutoKana.ts = jadilah Composable version"
+      ]
+    },
+    "naive": {
+      "pageTitle": "Naive Copy (Jangan guna) | Demo Furigana",
+      "desc": "Copy value guna v-model (input event) terus. Dapat kanji, bukan bacaan kana. Demo educational untuk tunjuk kenapa composition events tu penting.",
+      "warning": "Memang sengaja rosak. Taip 田中太郎 dalam field Nama — field Furigana dapat 田中太郎 (kanji). Ni tunjuk limit v-model (input event) tanpa compositionupdate.",
+      "errorMsg": "❌ Furigana dapat \"{value}\" instead of bacaan kana. Bacaan IME dah hilang masa v-model (input event) fire.",
+      "whyTitle": "Kenapa rosak?",
+      "why": {
+        "body": "Japanese IME convert dalam 3 langkah: romaji → hiragana → kanji candidate. v-model / v-model (input event) baru fire lepas kanji confirmed — bacaan hiragana dah takde masa tu.",
+        "eventsTitle": "Sequence event IME:",
+        "events": [
+          "compositionstart — IME buka",
+          "compositionupdate — bacaan kana ADA SINI (contoh: \"たなか\")",
+          "compositionend — kanji confirmed (contoh: \"田中\")",
+          "input — ← v-model / v-model (input event) fire kat sini. Dah kanji je yang ada."
+        ],
+        "solution": "Fix: listen kat compositionupdate dan simpan bacaan masa masih kana. Itulah yang useAutoKana Composable buat."
+      }
+    }
+  }
+}

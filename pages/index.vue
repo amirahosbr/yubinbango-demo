@@ -3,15 +3,13 @@
     <!-- Hero -->
     <div class="text-center mb-14">
       <div class="text-5xl mb-4">〒</div>
-      <h1 class="text-3xl font-bold text-gray-900 mb-3">郵便番号自動入力デモ</h1>
-      <p class="text-gray-500 text-lg max-w-xl mx-auto">
-        7桁の郵便番号を入力すると都道府県・市区町村が自動入力される、4つの実装方法を比較するデモです。
-      </p>
+      <h1 class="text-3xl font-bold text-gray-900 mb-3">{{ $t('postal.title') }}</h1>
+      <p class="text-gray-500 text-lg max-w-xl mx-auto">{{ $t('postal.subtitle') }}</p>
     </div>
 
     <!-- Cards -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      <NuxtLink
+      <NuxtLinkLocale
         v-for="page in pages"
         :key="page.path"
         :to="page.path"
@@ -42,95 +40,94 @@
           </div>
         </div>
         <div class="mt-4 flex items-center text-blue-600 text-sm font-medium gap-1 group-hover:gap-2 transition-all">
-          デモを見る
+          {{ $t('common.seeDemo') }}
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
           </svg>
         </div>
-      </NuxtLink>
+      </NuxtLinkLocale>
     </div>
 
     <!-- Tip -->
     <div class="mt-12 bg-blue-50 border border-blue-200 rounded-xl p-5 text-sm text-blue-800">
-      <strong class="block mb-1">テスト用の郵便番号</strong>
+      <strong class="block mb-1">{{ $t('postal.testTitle') }}</strong>
       <div class="flex flex-wrap gap-x-6 gap-y-1 mt-2 font-mono">
-        <span>1000001 → 東京都 千代田区 千代田</span>
-        <span>1600022 → 東京都 新宿区 新宿</span>
-        <span>5300001 → 大阪府 大阪市北区 梅田</span>
-        <span>4600008 → 愛知県 名古屋市中区 栄</span>
+        <span v-for="item in ($tm('postal.testItems') as string[])" :key="item">{{ item }}</span>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-useHead({ title: '郵便番号自動入力デモ' })
+const { t, tm } = useI18n()
 
-const pages = [
+useHead(computed(() => ({ title: t('postal.title') })))
+
+const pages = computed(() => [
   {
     path: '/yubinbango-core',
     icon: '📦',
     title: 'yubinbango-core',
-    badge: 'npm パッケージ',
+    badge: t('postal.core.badge'),
     badgeClass: 'badge-npm',
-    description: 'npm でインストールできる TypeScript 対応パッケージ。JSONP でデータを取得しセッション内にキャッシュ。Pinia / Nuxt 3 と最も相性が良い。',
+    description: t('postal.core.desc'),
     tags: [
-      { text: 'セッションキャッシュ', class: 'bg-green-100 text-green-700' },
-      { text: 'TypeScript対応', class: 'bg-blue-100 text-blue-700' },
-      { text: 'watch ベース', class: 'bg-gray-100 text-gray-600' },
+      { text: t('postal.core.tag1'), class: 'bg-green-100 text-green-700' },
+      { text: t('postal.core.tag2'), class: 'bg-blue-100 text-blue-700' },
+      { text: t('postal.core.tag3'), class: 'bg-gray-100 text-gray-600' },
     ],
   },
   {
     path: '/yubinbango-core2',
     icon: '📦',
     title: 'yubinbango-core2',
-    badge: 'npm パッケージ v2',
+    badge: t('postal.core2.badge'),
     badgeClass: 'bg-indigo-100 text-indigo-700',
-    description: 'yubinbango-core のフォーク。末尾に module.exports = YubinBango が追加され CommonJS として正しくエクスポート。Vite プラグインなしでそのまま動作する。API は完全互換。',
+    description: t('postal.core2.desc'),
     tags: [
-      { text: 'module.exports あり', class: 'bg-green-100 text-green-700' },
-      { text: 'Viteプラグイン不要', class: 'bg-indigo-100 text-indigo-700' },
-      { text: 'core1と互換', class: 'bg-gray-100 text-gray-600' },
+      { text: t('postal.core2.tag1'), class: 'bg-green-100 text-green-700' },
+      { text: t('postal.core2.tag2'), class: 'bg-indigo-100 text-indigo-700' },
+      { text: t('postal.core2.tag3'), class: 'bg-gray-100 text-gray-600' },
     ],
   },
   {
     path: '/zipcloud',
     icon: '🌐',
     title: 'zipcloud API',
-    badge: 'REST API',
+    badge: t('postal.zipcloud.badge'),
     badgeClass: 'badge-api',
-    description: '無料の郵便番号検索 API（zipcloud.ibsnet.co.jp）を $fetch で呼び出す方法。npm インストール不要。ネットワーク依存だが、構造がシンプルで理解しやすい。',
+    description: t('postal.zipcloud.desc'),
     tags: [
-      { text: 'npm不要', class: 'bg-green-100 text-green-700' },
-      { text: 'ネットワーク必須', class: 'bg-yellow-100 text-yellow-700' },
-      { text: '$fetch', class: 'bg-gray-100 text-gray-600' },
+      { text: t('postal.zipcloud.tag1'), class: 'bg-green-100 text-green-700' },
+      { text: t('postal.zipcloud.tag2'), class: 'bg-yellow-100 text-yellow-700' },
+      { text: t('postal.zipcloud.tag3'), class: 'bg-gray-100 text-gray-600' },
     ],
   },
   {
     path: '/yubinbango-script',
     icon: '🏷️',
     title: 'yubinbango.js',
-    badge: 'スクリプトタグ版',
+    badge: t('postal.script.badge'),
     badgeClass: 'badge-dom',
-    description: 'CDN のスクリプトタグ版。p-postal-code / p-region などのクラス名で DOM を直接書き換えるため Vue のリアクティビティと競合する。DOM 読み取りで同期する回避策を実装。',
+    description: t('postal.script.desc'),
     tags: [
-      { text: 'DOM操作', class: 'bg-yellow-100 text-yellow-700' },
-      { text: 'Vue非推奨', class: 'bg-red-100 text-red-700' },
-      { text: '比較用', class: 'bg-gray-100 text-gray-600' },
+      { text: t('postal.script.tag1'), class: 'bg-yellow-100 text-yellow-700' },
+      { text: t('postal.script.tag2'), class: 'bg-red-100 text-red-700' },
+      { text: t('postal.script.tag3'), class: 'bg-gray-100 text-gray-600' },
     ],
   },
   {
     path: '/composable',
     icon: '🔧',
     title: 'usePostalCode Composable',
-    badge: 'パターン',
+    badge: t('postal.composable.badge'),
     badgeClass: 'badge-pattern',
-    description: 'yubinbango-core2 を Nuxt 3 の Composable に包んで再利用可能にしたパターン。複数のフォームページや複数プロジェクトで同じロジックを共有できる。',
+    description: t('postal.composable.desc'),
     tags: [
-      { text: '再利用可能', class: 'bg-purple-100 text-purple-700' },
-      { text: 'Composable', class: 'bg-blue-100 text-blue-700' },
-      { text: 'ベストプラクティス', class: 'bg-green-100 text-green-700' },
+      { text: t('postal.composable.tag1'), class: 'bg-purple-100 text-purple-700' },
+      { text: t('postal.composable.tag2'), class: 'bg-blue-100 text-blue-700' },
+      { text: t('postal.composable.tag3'), class: 'bg-green-100 text-green-700' },
     ],
   },
-]
+])
 </script>

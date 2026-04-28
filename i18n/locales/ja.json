@@ -1,0 +1,165 @@
+{
+  "nav": {
+    "postal": "〒 郵便番号",
+    "furigana": "あ ふりがな",
+    "back": "← 一覧"
+  },
+  "common": {
+    "name": "氏名",
+    "furigana": "ふりがな",
+    "seeDemo": "デモを見る",
+    "implCode": "実装コード",
+    "recommended": "★ 推奨",
+    "custom": "カスタム",
+    "notRecommended": "❌ 非推奨",
+    "inline": "インライン",
+    "npm": "npm",
+    "pattern": "パターン",
+    "outputLabel": "出力形式",
+    "hiragana": "ひらがな",
+    "katakana": "カタカナ",
+    "namePlaceholder": "田中　太郎",
+    "furiganaPlaceholderHira": "たなか　たろう",
+    "furiganaPlaceholderKata": "タナカ　タロウ"
+  },
+  "postal": {
+    "title": "郵便番号自動入力デモ",
+    "subtitle": "7桁の郵便番号を入力すると都道府県・市区町村が自動入力される、4つの実装方法を比較するデモです。",
+    "testTitle": "テスト用の郵便番号",
+    "testItems": [
+      "1000001 → 東京都 千代田区 千代田",
+      "1600022 → 東京都 新宿区 新宿",
+      "5300001 → 大阪府 大阪市北区 梅田",
+      "4600008 → 愛知県 名古屋市中区 栄"
+    ],
+    "core": {
+      "badge": "npm パッケージ",
+      "desc": "npm でインストールできる TypeScript 対応パッケージ。JSONP でデータを取得しセッション内にキャッシュ。Pinia / Nuxt 3 と最も相性が良い。",
+      "tag1": "セッションキャッシュ",
+      "tag2": "TypeScript対応",
+      "tag3": "watch ベース"
+    },
+    "core2": {
+      "badge": "npm パッケージ v2",
+      "desc": "yubinbango-core のフォーク。末尾に module.exports = YubinBango が追加され CommonJS として正しくエクスポート。Vite プラグインなしでそのまま動作する。API は完全互換。",
+      "tag1": "module.exports あり",
+      "tag2": "Viteプラグイン不要",
+      "tag3": "core1と互換"
+    },
+    "zipcloud": {
+      "badge": "REST API",
+      "desc": "無料の郵便番号検索 API（zipcloud.ibsnet.co.jp）を $fetch で呼び出す方法。npm インストール不要。ネットワーク依存だが、構造がシンプルで理解しやすい。",
+      "tag1": "npm不要",
+      "tag2": "ネットワーク必須",
+      "tag3": "$fetch"
+    },
+    "script": {
+      "badge": "スクリプトタグ版",
+      "desc": "CDN のスクリプトタグ版。p-postal-code / p-region などのクラス名で DOM を直接書き換えるため Vue のリアクティビティと競合する。DOM 読み取りで同期する回避策を実装。",
+      "tag1": "DOM操作",
+      "tag2": "Vue非推奨",
+      "tag3": "比較用"
+    },
+    "composable": {
+      "badge": "パターン",
+      "desc": "yubinbango-core2 を Nuxt 3 の Composable に包んで再利用可能にしたパターン。複数のフォームページや複数プロジェクトで同じロジックを共有できる。",
+      "tag1": "再利用可能",
+      "tag2": "Composable",
+      "tag3": "ベストプラクティス"
+    }
+  },
+  "autoKana": {
+    "index": {
+      "title": "ふりがな自動入力デモ",
+      "subtitle": "氏名フィールドに入力すると、IME の変換イベントからふりがなを自動取得する4つの実装方法を比較するデモです。",
+      "howToTest": "テスト方法",
+      "howToTestBody": "氏名フィールドをクリックして日本語 IME で入力してください（例: 田中太郎）。ふりがなフィールドにひらがなが自動入力されます。",
+      "howToTestNote": "IME で変換前のひらがな読みを compositionupdate イベントで取得し、変換後のふりがなを自動入力します。",
+      "composable": {
+        "badge": "カスタム",
+        "desc": "composables/useAutoKana.ts に IME イベントをラップしたカスタム Composable。依存ゼロで Vue に完全対応。使う側はたった1行。",
+        "tag1": "依存ゼロ",
+        "tag2": "IMEイベント",
+        "tag3": "ひらがな / カタカナ切替"
+      },
+      "wanakana": {
+        "badge": "npm",
+        "desc": "wanakana.bind() でふりがなフィールドにバインド。ローマ字→ひらがなをリアルタイム変換。氏名からの自動取得ではなく「ふりがな入力補助」用途。",
+        "tag1": "wanakana v5",
+        "tag2": "ローマ字→ひらがな",
+        "tag3": "IMEとは別"
+      },
+      "inline": {
+        "badge": "インライン",
+        "desc": "useAutoKana と同じロジックを Composable に分離せず、コンポーネント内に直接書いた版。動作は同じ、コードの冗長性が増す。Composable の必要性を確認するための比較。",
+        "tag1": "Composable なし",
+        "tag2": "IMEイベント",
+        "tag3": "比較用"
+      },
+      "naive": {
+        "badge": "非推奨",
+        "desc": "v-model (input event) で値をそのままコピーする誤ったアプローチ。漢字確定後の文字をコピーするため、ふりがなフィールドに「田中太郎」が入ってしまう。なぜ compositionupdate が必要かを確認するための逆説デモ。",
+        "tag1": "動作しない",
+        "tag2": "漢字がコピーされる",
+        "tag3": "教育目的"
+      }
+    },
+    "composable": {
+      "pageTitle": "useAutoKana Composable | ふりがな自動入力",
+      "desc": "composables/useAutoKana.ts に IME の compositionupdate イベントをラップ。依存ゼロ・Vue ネイティブ。使う側はたった1行。",
+      "pros": [
+        "✅ 依存ゼロ — npm インストール不要",
+        "✅ compositionupdate で IME 読みを取得（漢字確定前のひらがな）",
+        "✅ 候補選択で漢字になっても読みは上書きされない（isKana チェック）",
+        "✅ output オプションがリアクティブ（MaybeRef 対応）",
+        "✅ 複数セグメント（名前を複数回変換しても結合）",
+        "✅ 入力クリアで自動リセット"
+      ]
+    },
+    "wanakana": {
+      "pageTitle": "wanakana | ふりがな自動入力",
+      "desc": "wanakana.bind() でふりがなフィールドにバインド。ローマ字入力をリアルタイムでひらがなに変換します。氏名からの自動取得ではなく「ふりがな入力補助」用途です。",
+      "warning": "このページの動作: 氏名フィールドからの自動入力はありません。ふりがなフィールドにローマ字で入力すると、リアルタイムでひらがなに変換されます。",
+      "furiganaHint": "ローマ字で入力（例: tanaka taro）",
+      "pros": [
+        "✅ npm install wanakana — 軽量ライブラリ",
+        "✅ wanakana.bind() で input にバインドするだけ",
+        "⚠️ 氏名フィールドから自動取得ではなく、ふりがなフィールドで手入力",
+        "⚠️ IME の compositionupdate は使わない（文字列変換のみ）",
+        "ℹ️ wanakana は「ローマ字 → ひらがな変換」の用途。auto-kana とは別の問題を解く"
+      ],
+      "diffTitle": "useAutoKana との違い",
+      "diff1": "useAutoKana は氏名フィールドの IME 読み（田中太郎 → たなかたろう）を取得。",
+      "diff2": "wanakana.bind() はふりがなフィールドへのローマ字入力（tanaka → たなか）を変換。",
+      "diff3": "UX が異なる — 前者は完全自動、後者はユーザーがふりがな欄に別途入力が必要。"
+    },
+    "inline": {
+      "pageTitle": "Inline イベント | ふりがな自動入力",
+      "desc": "useAutoKana と同じロジックを Composable に分離せず、コンポーネント内に直接書いた版。動作は同じですが、コードの冗長性が増します。",
+      "pros": [
+        "✅ 動作は useAutoKana Composable と完全に同じ",
+        "⚠️ addEventListener のセットアップを毎回コンポーネントに書く必要がある",
+        "⚠️ 複数フォームで使う場合にコピペが発生する",
+        "ℹ️ このコードをそのまま composables/useAutoKana.ts に移動したのが Composable 版"
+      ]
+    },
+    "naive": {
+      "pageTitle": "ナイーブコピー（非推奨）| ふりがな自動入力",
+      "desc": "v-model (input event) で値をそのままコピーする誤ったアプローチ。漢字確定後の文字をコピーするため、ふりがなフィールドに漢字が入ります。なぜ compositionupdate が必要かを確認するための逆説デモ。",
+      "warning": "意図的に壊れています。氏名フィールドに「田中太郎」と入力してください — ふりがなに「田中太郎」（漢字）がコピーされます。これが compositionupdate なしの限界です。",
+      "errorMsg": "❌ ふりがなに「{value}」がそのまま入力されました。IME の読みを取得していないためです。",
+      "whyTitle": "なぜ壊れるのか",
+      "why": {
+        "body": "日本語 IME は「ローマ字入力 → ひらがな変換 → 漢字候補選択」の3ステップで文字を確定します。v-model / v-model (input event) が値を受け取るのは漢字確定後なので、この時点ではもう読み（ひらがな）の情報はありません。",
+        "eventsTitle": "IME の各ステップのイベント:",
+        "events": [
+          "compositionstart — IME 入力開始",
+          "compositionupdate — ひらがな読みがここにある（例: \"たなか\"）",
+          "compositionend — 漢字確定（例: \"田中\"）",
+          "input — ← v-model / v-model (input event) はここ。もう漢字しかない"
+        ],
+        "solution": "解決策: compositionupdate のイベントデータがひらがなの間だけ読みを記録する。これが useAutoKana Composable が行っていること。"
+      }
+    }
+  }
+}
