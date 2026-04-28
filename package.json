@@ -1,0 +1,21 @@
+{
+  "name": "auto-fill",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "node scripts/patch-yubinbango.mjs && nuxt prepare"
+  },
+  "dependencies": {
+    "nuxt": "^3.15.4",
+    "yubinbango-core": "^0.6.3",
+    "yubinbango-core2": "^0.6.3"
+  },
+  "devDependencies": {
+    "@nuxtjs/tailwindcss": "^6.12.2",
+    "typescript": "^5.7.2"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "extends": "./.nuxt/tsconfig.json",
+  "compilerOptions": {
+    "skipLibCheck": true
+  },
+  "include": [
+    "pages/**/*",
+    "layouts/**/*",
+    "composables/**/*",
+    "components/**/*",
+    "types/**/*",
+    "app.vue",
+    "nuxt.config.ts",
+    ".nuxt/nuxt.d.ts"
+  ]
+}

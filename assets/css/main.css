@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap');
+
+body {
+  font-family: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+}
+
+.autofilled {
+  animation: autofill-flash 0.4s ease-out;
+}
+
+@keyframes autofill-flash {
+  0% { background-color: #dbeafe; }
+  100% { background-color: #eff6ff; }
+}
+
+.nav-link {
+  @apply text-gray-600 hover:text-blue-600 transition-colors duration-150 text-sm font-medium py-1 px-1;
+}
+
+.nav-link-active {
+  @apply text-blue-600 font-semibold border-b-2 border-blue-600;
+}
+
+.code-block {
+  @apply bg-gray-900 text-gray-100 rounded-xl p-5 text-xs overflow-x-auto leading-relaxed;
+  font-family: 'Fira Code', 'Cascadia Code', 'JetBrains Mono', Consolas, monospace;
+}
+
+.badge-npm     { @apply bg-red-100 text-red-700; }
+.badge-api     { @apply bg-green-100 text-green-700; }
+.badge-dom     { @apply bg-yellow-100 text-yellow-700; }
+.badge-pattern { @apply bg-purple-100 text-purple-700; }
