@@ -1,5 +1,5 @@
-import type { YubinBangoData } from 'yubinbango-core2'
-import YubinBango from 'yubinbango-core2'
+import type { YubinBangoData } from 'yubinbango-core'
+import YubinBango from 'yubinbango-core'
 
 export interface PostalAddress {
   pref: string

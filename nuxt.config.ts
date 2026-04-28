@@ -24,12 +24,12 @@ export default defineNuxtConfig({
         // both packages to ESM exports for stable client/runtime behavior.
         name: 'yubinbango-core-esm-compat',
         transform(code: string, id: string) {
-          if (id.includes('yubinbango-core.js')) {
-            return `${code}\nexport default YubinBango;\n`
-          }
-          if (id.includes('yubinbango-core2.js')) {
+          if (id.includes('/yubinbango-core2/') && id.includes('yubinbango-core.js')) {
             const withoutCommonJs = code.replace(/module\.exports\s*=\s*YubinBango;?/g, '')
             return `${withoutCommonJs}\nexport default YubinBango;\n`
+          }
+          if (id.includes('/yubinbango-core/') && id.includes('yubinbango-core.js')) {
+            return `${code}\nexport default YubinBango;\n`
           }
           return null
         },

@@ -241,7 +241,7 @@ watch(
       return
     }
 
-    if (!import.meta.client) return
+    // if (!import.meta.client) return
 
     status.loading = true
     new YubinBango2.Core(clean, (addr) => {
