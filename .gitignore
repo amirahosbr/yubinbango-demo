@@ -5,6 +5,7 @@ node_modules/
 .nuxt/
 .output/
 .nitro/
+.data/
 dist/
 
 ## Logs
@@ -19,6 +20,8 @@ lerna-debug.log*
 ## Test and coverage
 coverage/
 .nyc_output/
+.playwright/
+.playwright-mcp/
 
 ## Cache and temp files
 .cache/

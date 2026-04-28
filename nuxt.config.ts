@@ -8,7 +8,7 @@ export default defineNuxtConfig({
       ],
     },
   },
-  modules: ['@nuxtjs/tailwindcss', '@nuxtjs/i18n'],
+  modules: ['@nuxtjs/tailwindcss', '@nuxtjs/i18n', '@nuxt/content'],
   i18n: {
     strategy: 'prefix_except_default',
     defaultLocale: 'ja',

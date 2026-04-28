@@ -7,4 +7,5 @@ export default {
     './pages/**/*.vue',
     './app.vue',
   ],
+  plugins: [require('@tailwindcss/typography')],
 } satisfies Config

@@ -75,6 +75,11 @@
     <main class="pb-16">
       <slot />
     </main>
+    <footer class="border-t border-gray-100 py-4 text-center">
+      <NuxtLinkLocale to="/docs" class="text-xs text-gray-300 hover:text-gray-500 transition-colors">
+        docs
+      </NuxtLinkLocale>
+    </footer>
   </div>
 </template>
 
