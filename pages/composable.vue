@@ -7,7 +7,7 @@
         <h1 class="text-2xl font-bold text-gray-900">usePostalCode Composable</h1>
       </div>
       <p class="text-gray-500 text-sm">
-        yubinbango-core を Nuxt 3 の Composable に包んだパターン。
+        yubinbango-core2 を Nuxt 3 の Composable に包んだパターン。
         <code class="bg-gray-100 px-1 rounded text-xs">composables/usePostalCode.ts</code> に分離することで、
         複数のフォームページから同じロジックを再利用できます。
       </p>
@@ -108,14 +108,14 @@
           <li>✅ ページコンポーネントが非常にシンプルになる</li>
           <li>✅ 複数フォームページで同じロジックを再利用できる</li>
           <li>✅ loading / error 状態も composable に集約</li>
-          <li>✅ バックエンド（yubinbango-core / zipcloud）を差し替えやすい</li>
-          <li>ℹ️ このページの composable 実装は `yubinbango-core` を使用</li>
+          <li>✅ バックエンド（yubinbango-core2 / zipcloud）を差し替えやすい</li>
+          <li>ℹ️ このページの composable 実装は `yubinbango-core2` を使用</li>
         </ul>
 
         <div class="mt-4 bg-gray-50 rounded-xl p-4 text-sm text-gray-700 space-y-2">
           <p class="font-semibold">core と core2 の違い（Composable 観点）</p>
-          <p>・`yubinbango-core`: 元パッケージ。Nuxt 側で ESM 互換を付与して利用</p>
-          <p>・`yubinbango-core2`: `module.exports` 追加フォーク。API/データは core と同一</p>
+          <p>・`yubinbango-core`: 元パッケージ（このページでは直接利用しない）</p>
+          <p>・`yubinbango-core2`: `module.exports` 追加フォーク（このページの composable 実装で使用）</p>
         </div>
       </div>
     </details>
@@ -125,7 +125,7 @@
 <script setup lang="ts">
 useHead({ title: 'Composable デモ | 郵便番号自動入力' })
 
-const code1 = `import YubinBango from 'yubinbango-core' // core1: Nuxt 側で ESM 互換を付与
+const code1 = `import YubinBango from 'yubinbango-core2' // core2 を composable で利用
 
 export function usePostalCode() {
   const loading = ref(false)
