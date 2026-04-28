@@ -19,7 +19,7 @@
 | Page | The real point |
 |---|---|
 | **yubinbango-core** | Direct npm usage in a component. Requires a Vite plugin to fix the missing `module.exports`. |
-| **yubinbango-core2** | Same package, fork that added `module.exports` — no Vite plugin needed. That's the only difference. |
+| **yubinbango-core2** | Same package, fork that added `module.exports`. In this project we still normalize it to ESM at build time for Cloudflare/browser runtime stability. |
 | **yubinbango.js** | The DOM-class-name version (`p-region`, `p-locality`). Fights Vue reactivity, needs a `setTimeout` hack to sync DOM → state. Shows why you shouldn't use this in Vue. |
 | **zipcloud** | A completely different provider. Pure `$fetch` REST call. Requires `{ parseResponse: JSON.parse }` because they send `Content-Type: text/plain`. |
 | **Composable** | Not a different library — it's a code organisation pattern. Shows how to wrap core1 into `usePostalCode()` so the page component becomes one line. |
@@ -28,7 +28,7 @@
 
 ## The actually meaningful comparisons
 
-**core1 vs core2** — only `module.exports` exists in core2. Same code, same data, same API. Practically, core2 is the one you'd pick if using yubinbango.
+**core1 vs core2** — only `module.exports` exists in core2. Same code, same data, same API. In this project both are normalized to ESM in Vite for consistent behavior on Cloudflare runtime.
 
 **yubinbango (any) vs zipcloud** — the real fork. Different server, different maintainer, different failure modes. Yubinbango goes down if GitHub Pages goes down; zipcloud goes down if ibsnet goes down.
 
@@ -88,3 +88,25 @@ Now Vite's CommonJS interop kicks in, sees `module.exports`, wraps it as `{ defa
 ### In short
 
 `module.exports` is the bridge between "old browser global variable" code and "modern import/require" code. Without it, the package only works as a `<script>` tag. With it, bundlers (Vite, Webpack, etc.) can treat it as a proper module.
+
+---
+
+## Runtime issue we hit on Cloudflare
+
+### Symptom
+
+- `/yubinbango-core2` and `/composable` returned `500`
+- message: `module is not defined`
+
+### Cause
+
+`module.exports` from `yubinbango-core2` leaked into browser-executed runtime code in the Cloudflare bundle path. In browser runtime, `module` does not exist.
+
+### Fix applied in this project
+
+In `nuxt.config.ts`, the Vite transform for `yubinbango-core2`:
+
+1. Removes `module.exports = YubinBango`
+2. Appends `export default YubinBango`
+
+This keeps app code on `yubinbango-core2` while producing stable ESM output in both local and Cloudflare deploy builds.

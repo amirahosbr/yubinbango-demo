@@ -37,3 +37,10 @@ Token needs both account and zone permissions for route attach:
 - Zone - Zone: Read
 
 See `docs/CLOUDFLARE_WORKFLOW.md` for full setup and troubleshooting.
+
+## Known issues
+
+- Cloudflare runtime `500 module is not defined` on `yubinbango-core2` or composable pages:
+  see `docs/COMPARISON.md` section "Runtime issue we hit on Cloudflare".
+- `dig` resolves but browser shows `ERR_NAME_NOT_RESOLVED`:
+  see `docs/CLOUDFLARE_WORKFLOW.md` troubleshooting section for local DNS cache recovery.

@@ -19,11 +19,17 @@ export default defineNuxtConfig({
     plugins: [
       {
         // yubinbango-core creates a browser global but has no module.exports.
-        // This plugin injects the export so Vite can bundle it as an ES module.
+        // yubinbango-core2 adds module.exports, which can break in browser runtime
+        // under some edge bundles ("module is not defined"). This plugin normalizes
+        // both packages to ESM exports for stable client/runtime behavior.
         name: 'yubinbango-core-esm-compat',
         transform(code: string, id: string) {
           if (id.includes('yubinbango-core.js')) {
             return `${code}\nexport default YubinBango;\n`
+          }
+          if (id.includes('yubinbango-core2.js')) {
+            const withoutCommonJs = code.replace(/module\.exports\s*=\s*YubinBango;?/g, '')
+            return `${withoutCommonJs}\nexport default YubinBango;\n`
           }
           return null
         },

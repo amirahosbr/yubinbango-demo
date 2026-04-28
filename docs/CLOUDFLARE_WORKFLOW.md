@@ -127,3 +127,30 @@ Fix:
    - Zone - Zone: Read
 3. Ensure the token scope includes your `ujikaji.my` zone.
 4. Update GitHub secret `CLOUDFLARE_API_TOKEN` and re-run workflow.
+
+### DNS resolves in `dig` but browser/curl shows `ERR_NAME_NOT_RESOLVED`
+
+Observed symptom:
+
+- `dig yubinbango.ujikaji.my` returns IPs
+- browser shows `ERR_NAME_NOT_RESOLVED` or `curl` says `Could not resolve host`
+
+Likely cause:
+
+- local resolver cache/path issue on macOS (stale negative cache), not Cloudflare deployment state.
+
+Checks:
+
+```bash
+dig +short yubinbango.ujikaji.my
+curl -I https://yubinbango.ujikaji.my
+```
+
+One-off recovery on macOS:
+
+```bash
+sudo dscacheutil -flushcache
+sudo killall -HUP mDNSResponder
+```
+
+If needed, clear browser DNS/socket caches and retry. This should not be needed on every deploy.
