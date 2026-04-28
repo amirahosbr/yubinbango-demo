@@ -91,6 +91,56 @@ Now Vite's CommonJS interop kicks in, sees `module.exports`, wraps it as `{ defa
 
 ---
 
+## Auto-Kana (ふりがな自動入力)
+
+### What it is
+
+Auto-kana automatically fills a furigana (phonetic reading) field as the user types in a kanji name field. It works by listening to IME composition events that the browser fires while the user is still mid-input — before the kanji is committed, the raw reading (in kana) is available via `compositionupdate`.
+
+### Why jQuery-based solutions don't fit
+
+The most referenced library is `jquery.autoKana.js`. Avoid it in Nuxt 3:
+
+- Requires jQuery — dead weight in a Vite/Nuxt project
+- Hooks into deprecated IME event patterns
+- Conflicts with Vue's synthetic event model and `v-model`
+
+### Options
+
+| Option | Pros | Cons |
+|---|---|---|
+| `jquery.autoKana.js` | Battle-tested in legacy JP projects | Requires jQuery, not Vue-native, deprecated IME patterns |
+| `@koala-tea/vue3-auto-kana` | Vue 3 native | Small community, less actively maintained |
+| `auto-kana` (vanilla) | No framework dependency | Manual wiring to Vue events needed |
+| `wanakana` | Excellent kana string utilities | Does not do IME-based auto-kana — converts strings, not events |
+| **Custom `useAutoKana` composable** | No deps, Vue-native, full control | ~30 lines to write |
+
+### Recommended approach: custom composable
+
+Write a `useAutoKana` composable using standard browser composition events. This fits the existing `usePostalCode` composable pattern already in this project.
+
+**Events used:**
+
+- `compositionstart` — user opens IME
+- `compositionupdate` — fires on each keystroke during IME; `event.data` contains the current reading in kana
+- `compositionend` — user commits the kanji; lock in the accumulated kana reading
+- `input` (outside IME) — handle direct romaji input or paste
+
+**Output:** Full-width katakana (カタカナ) or hiragana (ひらがな) — configurable.
+
+**Usage shape:**
+
+```ts
+const { kana } = useAutoKana(nameInputRef, { output: 'katakana' })
+// kana is a readonly ref<string> — bind it to the furigana field
+```
+
+### Why not `wanakana`
+
+`wanakana` is useful for converting a string like `"tanaka"` → `"たなか"`, but it operates on already-committed text. Auto-kana requires reading the kana *before* kanji conversion happens, which only the IME composition events provide. The two tools solve different problems and can be used together.
+
+---
+
 ## Runtime issue we hit on Cloudflare
 
 ### Symptom
