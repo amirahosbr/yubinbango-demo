@@ -5,6 +5,10 @@
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
+    "dev:cf": "nuxt build --preset cloudflare_module && wrangler dev .output/server/index.mjs --assets .output/public",
+    "build:cf": "nuxt build --preset cloudflare_module",
+    "deploy:cf": "npm run build:cf && wrangler deploy .output/server/index.mjs --assets .output/public",
+    "cf:tail": "wrangler tail",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "node scripts/patch-yubinbango.mjs && nuxt prepare"
@@ -16,6 +20,7 @@
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^6.12.2",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.2",
+    "wrangler": "^4.85.0"
   }
 }

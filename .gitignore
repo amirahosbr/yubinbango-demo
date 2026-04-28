@@ -31,6 +31,9 @@ temp/
 .env
 .env.*
 !.env.example
+.dev.vars
+.dev.vars.*
+!.dev.vars.example
 
 ## Runtime data
 pids/
@@ -50,3 +53,6 @@ pids/
 ## OS files
 .DS_Store
 Thumbs.db
+
+## Cloudflare tooling
+.wrangler/
